@@ -3,511 +3,741 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trainingsplan Ironman 70.3 – August 2027</title>
+    <title>Mitteldistanz Triathlon Trainingsplan 2027</title>
     <style>
         :root {
-            --bg-primary: #0f172a;
-            --bg-card: #1e293b;
-            --accent: #f97316;
-            --accent-hover: #ea580c;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #334155;
-            --success: #22c55e;
+            --primary: #0056b3;
+            --primary-light: #e6f0fa;
+            --accent: #28a745;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #212529;
+            --border: #dee2e6;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
-
         body {
-            background-color: var(--bg-primary);
-            color: var(--text-main);
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
             padding: 20px;
+            line-height: 1.5;
         }
-
         .container {
-            max-width: 1100px;
+            max-width: 900px;
             margin: 0 auto;
         }
-
-        header {
+        h1 {
+            color: var(--primary);
             text-align: center;
-            padding: 20px 0 40px 0;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 30px;
+            margin-bottom: 5px;
         }
-
-        header h1 {
-            font-size: 2.2rem;
-            color: var(--text-main);
+        .subtitle {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        .month-section {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+        .month-title {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 6px;
+            margin-top: 0;
+            font-size: 1.25rem;
+        }
+        details {
+            background-color: #fff;
+            border: 1px solid var(--border);
+            border-radius: 6px;
             margin-bottom: 10px;
         }
-
-        header h1 span {
-            color: var(--accent);
+        details[open] {
+            border-color: var(--primary);
         }
-
-        .meta-info {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: var(--bg-card);
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            border-left: 4px solid var(--accent);
-        }
-
-        .stat-card h3 {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .stat-card p {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-top: 5px;
-        }
-
-        .stat-card span {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: normal;
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            margin: 30px 0 15px 0;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title::before {
-            content: '';
-            display: inline-block;
-            width: 4px;
-            height: 20px;
-            background-color: var(--accent);
-        }
-
-        .table-responsive {
-            overflow-x: auto;
-            margin-bottom: 30px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--bg-card);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.95rem;
-        }
-
-        th {
-            background-color: rgba(255, 255, 255, 0.05);
-            color: var(--accent);
+        summary {
+            padding: 12px 16px;
             font-weight: 600;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        /* Tabs für Phasen */
-        .tab-buttons {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tab-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            padding: 10px 18px;
-            border-radius: 6px;
             cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.2s;
-            font-weight: 600;
-        }
-
-        .tab-btn.active, .tab-btn:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-
-        .tab-content {
-            display: none;
-            background: var(--bg-card);
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .week-grid {
-            display: grid;
-            gap: 12px;
-        }
-
-        .day-row {
+            list-style: none;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border);
+            align-items: center;
+            background-color: #fafafa;
             border-radius: 6px;
         }
-
-        .day-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        details[open] summary {
+            background-color: var(--primary-light);
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
         }
-
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        summary::after {
+            content: "▶";
+            font-size: 0.75rem;
+            color: var(--primary);
+            transition: transform 0.2s;
+        }
+        details[open] summary::after {
+            transform: rotate(90deg);
+        }
+        .badge {
+            background-color: var(--primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+        .week-content {
+            padding: 15px;
+        }
+        .day-block {
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #eee;
+        }
+        .day-block:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
         .day-name {
             font-weight: bold;
-            width: 35px;
-            color: var(--accent);
-        }
-
-        .day-check {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--accent);
-            cursor: pointer;
-        }
-
-        .badge {
+            color: #495057;
             display: inline-block;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            background: rgba(249, 115, 22, 0.15);
-            color: var(--accent);
+            width: 100px;
         }
-
-        .info-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+        .workout-title {
+            font-weight: 600;
+            color: #111;
         }
-
-        ul {
+        ul.details-list {
+            margin: 4px 0 0 100px;
             padding-left: 20px;
-            margin-top: 10px;
+            font-size: 0.88rem;
+            color: #555;
         }
-
-        li {
-            margin-bottom: 8px;
-            color: var(--text-muted);
-        }
-
-        li strong {
-            color: var(--text-main);
-        }
-
         @media (max-width: 600px) {
-            .day-row {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
+            .day-name {
+                display: block;
+                width: 100%;
+                margin-bottom: 2px;
+            }
+            ul.details-list {
+                margin-left: 15px;
             }
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h1>Mitteldistanz Triathlon Trainingsplan</h1>
+        <div class="subtitle">Roadmap 2027 | Ziel-Wettkampf: Samstag, 28. August 2027</div>
 
-<div class="container">
-    <header>
-        <h1>Ironman 70.3 <span>Roadmap</span></h1>
-        <div class="meta-info">
-            <span>📅 Start: Sep 2026</span>
-            <span>🏁 Zielrennen: Aug 2027</span>
-            <span>⏱ Dauer: ~48 Wochen</span>
-            <span>⏳ Zeitaufwand: 8–10 Std./Woche</span>
-        </div>
-    </header>
+        <!-- JANUAR 2027 -->
+        <div class="month-section">
+            <h2 class="month-title">Januar 2027</h2>
+            
+            <details>
+                <summary>
+                    <span>Woche 1 (04.01. – 10.01.2027) – Vorbereitung</span>
+                    <span class="badge">09:25 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> Ruhetag / Regeneration</div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:30 h) | LAUFEN: Grundlage (00:45 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">RAD: Grundlage (01:00 h)</span></div>
+                    <div class="day-block">
+                        <span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:00 h) | LAUFEN: Grundlage (00:40 h)</span>
+                        <ul class="details-list">
+                            <li>400m Warmup | GA2 Serie (100m, 200m Paddels, 300m Kraul, 400m Pullbuoy, 300m, 200m, 100m) | 8x50m zügig | 200m Ausschwimmen</li>
+                        </ul>
+                    </div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">RAD: Grundlage (01:30 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block">
+                        <span class="day-name">Samstag:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h) | LAUFEN: Intervalle (01:00 h)</span>
+                        <ul class="details-list">
+                            <li>Schwimmen: 400m Warmup | 10x100m zügig | 10x50m Sprint Paddels | 200m Ausschwimmen</li>
+                            <li>Laufen: 20m Warmup | 4x500m (Pace 04:06 Min/km) mit je 500m Trabpause</li>
+                        </ul>
+                    </div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">RAD: Grundlage (01:30 h)</span></div>
+                </div>
+            </details>
 
-    <!-- KENNZAHLEN DASHBOARD -->
-    <div class="stats-grid">
-        <div class="stat-card">
-            <h3>Laufen (5 km / HM-Ziel)</h3>
-            <p>22:00 <span>/ &lt; 1:40h</span></p>
-            <span>VDOT ≈ 43 → Ziel 46-47</span>
+            <details>
+                <summary>
+                    <span>Woche 2 (11.01. – 17.01.2027) – Vorbereitung</span>
+                    <span class="badge">10:10 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> Ruhetag / Regeneration</div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:30 h) | LAUFEN: Grundlage (00:45 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">RAD: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:00 h) | LAUFEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">RAD: Grundlage (01:45 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h) | LAUFEN: Intervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">RAD: Grundlage (01:50 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 3 (18.01. – 24.01.2027) – Vorbereitung</span>
+                    <span class="badge">11:25 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:45 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:30 h) | LAUFEN: Grundlage (00:45 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">RAD: Grundlage (01:00 h) | SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">LAUFEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">RAD: Grundlage (01:45 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h) | LAUFEN: Intervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">RAD: Grundlage (02:10 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 4 (25.01. – 31.01.2027) – Vorbereitung (Ruhewoche)</span>
+                    <span class="badge">10:10 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:45 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:30 h) | LAUFEN: Grundlage (00:45 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">RAD: Grundlage (01:00 h) | SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">LAUFEN: Grundlage (00:40 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">RAD: Grundlage (01:30 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h) | LAUFEN: Intervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">RAD: Grundlage (01:30 h)</span></div>
+                </div>
+            </details>
         </div>
-        <div class="stat-card">
-            <h3>Radfahren FTP</h3>
-            <p>300 W <span>(4.23 W/kg)</span></p>
-            <span>Starke Basis (71 kg)</span>
+
+        <!-- FEBRUAR 2027 -->
+        <div class="month-section">
+            <h2 class="month-title">Februar 2027</h2>
+            
+            <details>
+                <summary>
+                    <span>Woche 5 (01.02. – 07.02.2027) – Vorbereitung</span>
+                    <span class="badge">12:30 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:45 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:30 h) | LAUFEN: Grundlage (00:45 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">RAD: Intervalle (01:00 h) | SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">LAUFEN: Grundlage (01:10 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">RAD: Grundlage (01:45 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h) | LAUFEN: Intervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">RAD: Grundlage (02:30 h) | LAUFEN: Grundlage (00:35 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 6 (08.02. – 14.02.2027) – Grundlage 1</span>
+                    <span class="badge">10:45 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:40 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">LAUFEN: Bergintervalle (01:00 h) | STABI: Mobility/Core (00:20 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">RAD: Intervalle (00:50 h) | SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">LAUFEN: Grundlage (00:50 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">RAD: Grundlage (01:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h) | LAUFEN: Intervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Grundlage (00:45 h) | RAD: Grundlage (01:30 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 7 (15.02. – 21.02.2027) – Grundlage 1</span>
+                    <span class="badge">11:15 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:40 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">LAUFEN: Intervalle (01:00 h) | STABI: Mobility/Core (00:20 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">RAD: Bergintervalle (01:00 h) | SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">LAUFEN: Grundlage (01:00 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">RAD: Grundlage (01:30 h) | SCHWIMMEN: Kraft/Tempo (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">LAUFEN: Intervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Grundlage (00:45 h) | RAD: Grundlage (01:40 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 8 (22.02. – 28.02.2027) – Grundlage 1 (Ruhewoche)</span>
+                    <span class="badge">08:15 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:40 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">LAUFEN: Grundlage (00:45 h) | STABI: Mobility/Core (00:20 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Pace-Mix (01:00 h) | RAD: Intervalle (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (00:50 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">RAD: Grundlage (01:30 h)</span></div>
+                </div>
+            </details>
         </div>
-        <div class="stat-card">
-            <h3>Schwimmen</h3>
-            <p>2:10 <span>min/100m</span></p>
-            <span>Nebenpriorität (2x/Woche)</span>
+
+        <!-- MÄRZ 2027 -->
+        <div class="month-section">
+            <h2 class="month-title">März 2027</h2>
+            
+            <details>
+                <summary>
+                    <span>Woche 9 (01.03. – 07.03.2027) – Grundlage 1</span>
+                    <span class="badge">12:45 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:40 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">LAUFEN: Bergintervalle (01:00 h) | STABI: Mobility/Core (00:20 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Pace-Mix (01:00 h) | RAD: Bergintervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:10 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">RAD: Grundlage (01:30 h) | SCHWIMMEN: Kraft/Tempo (01:00 h) | LAUFEN: Intervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Grundlage (00:45 h) | RAD: Grundlage (02:00 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 10 (08.03. – 14.03.2027) – Grundlage 1</span>
+                    <span class="badge">12:50 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:45 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">LAUFEN: Intervalle (01:00 h) | STABI: Mobility/Core (00:20 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Pace-Mix (01:00 h) | RAD: Intervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:10 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">RAD: Grundlage (01:30 h) | SCHWIMMEN: Kraft/Tempo (01:00 h) | LAUFEN: Intervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Grundlage (00:45 h) | RAD: Grundlage (02:00 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 11 (15.03. – 21.03.2027) – Grundlage 1</span>
+                    <span class="badge">12:50 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:45 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">LAUFEN: Bergintervalle (01:00 h) | STABI: Mobility/Core (00:20 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Pace-Mix (01:00 h) | RAD: Bergintervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:10 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">RAD: Grundlage (01:30 h) | SCHWIMMEN: Kraft/Tempo (01:00 h) | LAUFEN: Intervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Grundlage (00:45 h) | RAD: Grundlage (02:00 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 12 (22.03. – 28.03.2027) – Grundlage 2 (Ruhewoche)</span>
+                    <span class="badge">09:40 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:20 h) | RAD: Bergintervalle (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">LAUFEN: Grundlage (00:45 h) | SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:05 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">SCHWIMMEN: Pace-Mix (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Intervalle (00:50 h) | RAD: Grundlage (01:30 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 13 (29.03. – 04.04.2027) – Grundlage 2</span>
+                    <span class="badge">12:30 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:20 h) | RAD: Intervalle (01:05 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Pace-Mix (01:00 h) | LAUFEN: Bergintervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:15 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">RAD: Grundlage (01:15 h) | SCHWIMMEN: Pace-Mix (01:00 h) | LAUFEN: Intervalle (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Grundlage (00:40 h) | RAD: Grundlage (01:45 h)</span></div>
+                </div>
+            </details>
         </div>
-        <div class="stat-card">
-            <h3>70.3 Rad-Pace</h3>
-            <p>210–225 W</p>
-            <span>70–75% FTP</span>
+
+        <!-- APRIL 2027 -->
+        <div class="month-section">
+            <h2 class="month-title">April 2027</h2>
+
+            <details>
+                <summary>
+                    <span>Woche 14 (05.04. – 11.04.2027) – Grundlage 2</span>
+                    <span class="badge">13:00 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:20 h) | RAD: Bergintervalle (00:55 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h) | LAUFEN: Bergintervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:20 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">RAD: Grundlage (01:30 h) | SCHWIMMEN: Kraft/Tempo (01:00 h) | LAUFEN: Intervalle (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Grundlage (00:45 h) | RAD: Grundlage (02:00 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 15 (12.04. – 18.04.2027) – Grundlage 2</span>
+                    <span class="badge">13:40 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:20 h) | RAD: Intervalle (01:10 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Pace-Mix (01:00 h) | LAUFEN: Bergintervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:20 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">RAD: Grundlage (01:30 h) | SCHWIMMEN: Kraft/Tempo (01:00 h) | LAUFEN: Intervalle (00:55 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Grundlage (00:50 h) | RAD: Grundlage (02:15 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 16 (19.04. – 25.04.2027) – Grundlage 2 (Ruhewoche)</span>
+                    <span class="badge">09:40 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:20 h) | RAD: Bergintervalle (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">LAUFEN: Grundlage (00:45 h) | SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:05 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">SCHWIMMEN: Pace-Mix (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Intervalle (00:50 h) | RAD: Grundlage (01:30 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 17 (26.04. – 02.05.2027) – Grundlage 3</span>
+                    <span class="badge">13:10 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:20 h) | LAUFEN: Bergintervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h) | RAD: Intervalle (01:20 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:10 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">RAD: Grundlage (01:20 h) | SCHWIMMEN: Pace-Mix (01:00 h) | LAUFEN: Intervalle (00:45 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Regeneration (00:45 h) | RAD: Grundlage (02:30 h)</span></div>
+                </div>
+            </details>
+        </div>
+
+        <!-- MAI 2027 -->
+        <div class="month-section">
+            <h2 class="month-title">Mai 2027</h2>
+
+            <details>
+                <summary>
+                    <span>Woche 18 (03.05. – 09.05.2027) – Grundlage 3</span>
+                    <span class="badge">13:55 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:20 h) | LAUFEN: Intervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (00:50 h) | RAD: Bergintervalle (01:05 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:20 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">RAD: Grundlage (01:30 h) | SCHWIMMEN: Pace-Mix (01:00 h) | LAUFEN: Intervalle (00:55 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Regeneration (00:45 h) | RAD: Grundlage (03:00 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 19 (10.05. – 16.05.2027) – Grundlage 3</span>
+                    <span class="badge">14:55 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:20 h) | LAUFEN: Bergintervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h) | RAD: Intervalle (01:25 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:30 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">RAD: Grundlage (01:40 h) | SCHWIMMEN: Pace-Mix (01:00 h) | LAUFEN: Intervalle (00:45 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Regeneration (00:45 h) | RAD: Grundlage (03:30 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 20 (17.05. – 23.05.2027) – Grundlage 3 (Ruhewoche)</span>
+                    <span class="badge">10:45 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:20 h) | LAUFEN: Grundlage (00:45 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (00:50 h) | RAD: Bergintervalle (01:05 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:10 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">SCHWIMMEN: Pace-Mix (01:00 h) | LAUFEN: Intervalle (00:55 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">RAD: Grundlage (02:30 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 21 (24.05. – 30.05.2027) – Grundlage 3</span>
+                    <span class="badge">15:15 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:20 h) | LAUFEN: Bergintervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h) | RAD: Intervalle (01:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:40 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">RAD: Grundlage (01:40 h) | SCHWIMMEN: Pace-Mix (01:00 h) | LAUFEN: Intervalle (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Regeneration (00:45 h) | RAD: Grundlage (03:30 h)</span></div>
+                </div>
+            </details>
+        </div>
+
+        <!-- JUNI 2027 -->
+        <div class="month-section">
+            <h2 class="month-title">Juni 2027</h2>
+
+            <details>
+                <summary>
+                    <span>Woche 22 (31.05. – 06.06.2027) – Aufbau 1</span>
+                    <span class="badge">13:55 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:20 h) | LAUFEN: Intervalle (00:55 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h) | RAD: Intervalle (01:10 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Pace-Mix (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:05 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:10 h) | RAD: Intervalle (02:15 h) | RAD: Regeneration (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">RAD: Grundlage (02:30 h) | LAUFEN: Koppellauf (00:30 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 23 (07.06. – 13.06.2027) – Aufbau 1</span>
+                    <span class="badge">13:40 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:20 h) | LAUFEN: Intervalle (01:05 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h) | RAD: Intervalle (01:15 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Pace-Mix (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:15 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">LAUFEN: Intervalle (01:00 h) | RAD: Grundlage (02:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">RAD: Grundlage (02:45 h) | LAUFEN: Koppellauf (00:30 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 24 (14.06. – 20.06.2027) – Aufbau 1 (Ruhewoche)</span>
+                    <span class="badge">13:00 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:20 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h) | RAD: Intervalle (01:10 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:05 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:10 h) | RAD: Intervalle (02:15 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">RAD: Grundlage (02:30 h) | LAUFEN: Koppellauf (00:30 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 25 (21.06. – 27.06.2027) – Aufbau 1</span>
+                    <span class="badge">14:55 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:20 h) | LAUFEN: Intervalle (01:10 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h) | RAD: Intervalle (01:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Pace-Mix (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:30 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">LAUFEN: Intervalle (00:55 h) | RAD: Grundlage (02:15 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">RAD: Grundlage (03:15 h) | LAUFEN: Koppellauf (00:30 h)</span></div>
+                </div>
+            </details>
+        </div>
+
+        <!-- JULI 2027 -->
+        <div class="month-section">
+            <h2 class="month-title">Juli 2027</h2>
+
+            <details>
+                <summary>
+                    <span>Woche 26 (28.06. – 04.07.2027) – Aufbau 1</span>
+                    <span class="badge">16:00 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">STABI: Mobility/Core (00:20 h) | LAUFEN: Intervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h) | RAD: Intervalle (01:15 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Pace-Mix (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (01:30 h) | STABI: Mobility/Core (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:10 h) | RAD: Intervalle (02:45 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">RAD: Grundlage (03:30 h) | LAUFEN: Koppellauf (00:30 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 27 (05.07. – 11.07.2027) – Aufbau 2</span>
+                    <span class="badge">15:45 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">RAD: Grundlage (01:45 h) | STABI: Mobility/Core (00:25 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Freiwasser (00:40 h) | LAUFEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h) | RAD: Intervalle (02:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">STABI: Mobility/Core (00:25 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">RAD: Grundlage (02:30 h) | LAUFEN: Intervalle (01:05 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Koppellauf (00:35 h) | RAD: Intervalle (03:30 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 28 (12.07. – 18.07.2027) – Aufbau 2 (Ruhewoche)</span>
+                    <span class="badge">15:05 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">LAUFEN: Regeneration (00:45 h) | STABI: Mobility/Core (00:25 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Freiwasser (00:40 h) | RAD: Bergintervalle (02:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h) | LAUFEN: Intervalle (01:35 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">STABI: Mobility/Core (00:25 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">RAD: Intervalle (02:00 h) | SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">RAD: Grundlage (03:30 h) | LAUFEN: Grundlage (00:45 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 29 (19.07. – 25.07.2027) – Aufbau 2</span>
+                    <span class="badge">16:15 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">RAD: Grundlage (02:00 h) | STABI: Mobility/Core (00:25 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Freiwasser (00:50 h) | LAUFEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Kraft/Tempo (01:00 h) | RAD: Intervalle (02:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">STABI: Mobility/Core (00:25 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">RAD: Grundlage (02:30 h) | LAUFEN: Intervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Koppellauf (00:35 h) | RAD: Intervalle (03:30 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 30 (26.07. – 01.08.2027) – Aufbau 2</span>
+                    <span class="badge">16:00 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">LAUFEN: Intervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Pace-Mix (01:00 h) | RAD: Intervalle (02:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Freiwasser (00:50 h) | LAUFEN: Grundlage (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">STABI: Mobility/Core (00:25 h) | RAD: Grundlage (02:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">RAD: Grundlage (02:30 h) | LAUFEN: Intervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">RAD: Intervalle (03:30 h) | LAUFEN: Koppellauf (00:35 h)</span></div>
+                </div>
+            </details>
+        </div>
+
+        <!-- AUGUST 2027 -->
+        <div class="month-section">
+            <h2 class="month-title">August 2027</h2>
+
+            <details>
+                <summary>
+                    <span>Woche 31 (02.08. – 08.08.2027) – Höchstleistung</span>
+                    <span class="badge">12:30 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">RAD: Intervalle (01:30 h) | STABI: Mobility/Core (00:20 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Freiwasser (00:45 h) | LAUFEN: Intervalle (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">RAD: Grundlage (01:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (00:45 h) | STABI: Mobility/Core (00:20 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">SCHWIMMEN: Pace-Mix (00:45 h) | RAD: Koppellauf Renntempo (02:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Koppellauf (00:40 h) | RAD: Grundlage (02:00 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 32 (09.08. – 15.08.2027) – Höchstleistung</span>
+                    <span class="badge">10:00 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> <span class="workout-title">SCHWIMMEN: Grundlage (00:45 h)</span></div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">RAD: Intervalle (01:15 h) | STABI: Mobility/Core (00:20 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">SCHWIMMEN: Pace-Mix (00:45 h) | LAUFEN: Intervalle (00:50 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">RAD: Grundlage (01:15 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">LAUFEN: Grundlage (00:40 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">SCHWIMMEN: Freiwasser (00:40 h) | RAD: Koppellauf (02:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">LAUFEN: Koppellauf (00:30 h) | RAD: Grundlage (01:30 h)</span></div>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <span>Woche 33 (16.08. – 22.08.2027) – Tapering / Entlastung</span>
+                    <span class="badge">06:30 h</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> Ruhetag</div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">SCHWIMMEN: Grundlagen (00:40 h) | RAD: Grundlagen mit Antritten (01:00 h)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">LAUFEN: Wettkampftempo-Spritzen (00:35 h)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Freiwasser locker (00:30 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">STABI: Mobility (00:20 h)</span></div>
+                    <div class="day-block"><span class="day-name">Samstag:</span> <span class="workout-title">RAD: Locker mit Frequenzwechseln (01:15 h) | LAUFEN: Koppellauf kurz (00:20 h)</span></div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> <span class="workout-title">SCHWIMMEN: Locker (00:30 h) | LAUFEN: Regeneration (00:25 h)</span></div>
+                </div>
+            </details>
+
+            <details open>
+                <summary>
+                    <span>Woche 34 (23.08. – 29.08.2027) – WETTKAMPFWOCHE</span>
+                    <span class="badge" style="background-color: var(--accent);">RACE WEEK</span>
+                </summary>
+                <div class="week-content">
+                    <div class="day-block"><span class="day-name">Montag:</span> Ruhetag / Regeneration</div>
+                    <div class="day-block"><span class="day-name">Dienstag:</span> <span class="workout-title">SCHWIMMEN: 00:30 h (inkl. 4x50m WK-Pace) | RAD: 00:45 h (locker mit 3x1 Min. Renntempo)</span></div>
+                    <div class="day-block"><span class="day-name">Mittwoch:</span> <span class="workout-title">LAUFEN: 00:30 h (locker mit 4x100m Steigerungen)</span></div>
+                    <div class="day-block"><span class="day-name">Donnerstag:</span> <span class="workout-title">SCHWIMMEN: Freiwasser Streckenbesichtigung (00:25 h)</span></div>
+                    <div class="day-block"><span class="day-name">Freitag:</span> <span class="workout-title">RAD/LAUFEN: Vorbelastung (00:20 h Rad + 00:10 h Laufen) | Unterlagen & Check-in</span></div>
+                    <div class="day-block" style="background-color: #e8f5e9; padding: 10px; border-radius: 6px; border: 1px solid var(--accent);">
+                        <span class="day-name" style="color: var(--accent);">Samstag:</span> 
+                        <strong style="font-size: 1.05rem; color: #2e7d32;">🏆 WETTKAMPFTAG (28.08.2027) – MITTELDISTANZ TRIATHLON</strong>
+                    </div>
+                    <div class="day-block"><span class="day-name">Sonntag:</span> Recovery Phase & Feiern!</div>
+                </div>
+            </details>
         </div>
     </div>
-
-    <!-- MAKROZYKLUS -->
-    <div class="section-title">Makrozyklus-Übersicht</div>
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th>Phase</th>
-                    <th>Zeitraum</th>
-                    <th>Wochen</th>
-                    <th>Fokus</th>
-                    <th>Umfang</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>0 – Übergang/Basis</strong></td>
-                    <td>Sep–Okt 2026</td>
-                    <td>4</td>
-                    <td>Tests (FTP, 5km, CSS), Gewohnheiten, Kraft-Basis</td>
-                    <td>6–7 Std.</td>
-                </tr>
-                <tr>
-                    <td><strong>1 – Grundlage 1</strong></td>
-                    <td>Okt–Nov 2026</td>
-                    <td>8</td>
-                    <td>Aerobes Volumen, Technik Schwimmen, Kraft 2x/Woche</td>
-                    <td>7–8 Std.</td>
-                </tr>
-                <tr>
-                    <td><strong>2 – Grundlage 2</strong></td>
-                    <td>Dez 2026–Jan 2027</td>
-                    <td>8</td>
-                    <td>Volumen halten, Sweetspot, Lauf-ABC</td>
-                    <td>8–9 Std.</td>
-                </tr>
-                <tr>
-                    <td><strong>3 – Aufbau 1</strong></td>
-                    <td>Feb–Mär 2027</td>
-                    <td>8</td>
-                    <td>Schwellentraining, Bricks, HM-Testrennen</td>
-                    <td>8–9 Std.</td>
-                </tr>
-                <tr>
-                    <td><strong>4 – Renn-Spezifisch</strong></td>
-                    <td>Apr–Jun 2027</td>
-                    <td>12</td>
-                    <td>Race-Pace-Bricks, lange Simulationen</td>
-                    <td>9–10 Std.</td>
-                </tr>
-                <tr>
-                    <td><strong>5 – Peak</strong></td>
-                    <td>Jul 2027</td>
-                    <td>4</td>
-                    <td>Höchstvolumen, letzte lange Bricks</td>
-                    <td>10 Std.</td>
-                </tr>
-                <tr>
-                    <td><strong>6 – Taper</strong></td>
-                    <td>Aug 2027</td>
-                    <td>2–3</td>
-                    <td>Volumen -40 bis -60%, Frische aufbauen</td>
-                    <td>4–6 Std.</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- WOCHENSTRUKTUR TABS -->
-    <div class="section-title">Beispiel-Wochenstruktur je Phase</div>
-    
-    <div class="tab-buttons">
-        <button class="tab-btn active" onclick="openTab(event, 'p1')">Phase 1: Grundlage</button>
-        <button class="tab-btn" onclick="openTab(event, 'p3')">Phase 3: Aufbau 1</button>
-        <button class="tab-btn" onclick="openTab(event, 'p4')">Phase 4: Renn-Spezifisch</button>
-        <button class="tab-btn" onclick="openTab(event, 'p5')">Phase 5 & 6: Peak / Taper</button>
-    </div>
-
-    <!-- PHASE 1 -->
-    <div id="p1" class="tab-content active">
-        <div class="week-grid">
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Mo</span><span>Ruhetag</span></div><span class="badge">Regeneration</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Di</span><span>Lauf locker (E) + Lauf-ABC / Steigerungen</span></div><span class="badge">40 min</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Mi</span><span>Rad Z2 + Kraft (Rumpf, Hüfte, Beine)</span></div><span class="badge">60 + 25 min</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Do</span><span>Schwimmen (Technik + Ausdauer)</span></div><span class="badge">45 min</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Fr</span><span>Lauf locker (E)</span></div><span class="badge">35 min</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Sa</span><span>Rad lang Z2, letzte 10–15 min Z3</span></div><span class="badge">90 min</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">So</span><span>Lauf lang (E/M-Mix)</span></div><span class="badge">60 min</span></div>
-        </div>
-        <p style="margin-top: 15px; font-size: 0.85rem; color: var(--text-muted);">*Zusätzlich: Schwimmen #2 (Technik, 30–40 min) variabel einbauen.</p>
-    </div>
-
-    <!-- PHASE 3 -->
-    <div id="p3" class="tab-content">
-        <div class="week-grid">
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Mo</span><span>Ruhetag</span></div><span class="badge">Regeneration</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Di</span><span>Lauf: Schwellenintervalle (z.B. 4×6 min @ T-Pace)</span></div><span class="badge">45 min</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Mi</span><span>Rad: Sweetspot (z.B. 3×12 min @ 88–95% FTP) + Kraft</span></div><span class="badge">75 min</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Do</span><span>Schwimmen Technik + CSS-Intervalle</span></div><span class="badge">45 min</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Fr</span><span>Lauf locker</span></div><span class="badge">35 min</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Sa</span><span>Rad lang 1.5–2h Z2 (mit 15m Z3–Z4) + Brick-Lauf 15m M-Tempo</span></div><span class="badge">2h + 15 min</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">So</span><span>Lauf lang, Mix locker + M-Pace-Passagen</span></div><span class="badge">70–80 min</span></div>
-        </div>
-    </div>
-
-    <!-- PHASE 4 -->
-    <div id="p4" class="tab-content">
-        <div class="week-grid">
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Mo</span><span>Ruhetag</span></div><span class="badge">Regeneration</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Di</span><span>Lauf: Tempo/Schwelle (4×6 min @ T + Steigerungen)</span></div><span class="badge">45–50 min</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Mi</span><span>Rad: Race-Pace-Intervalle (2×20 min @ 70–75% FTP) + Kraft</span></div><span class="badge">70 min</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Do</span><span>Schwimmen Ausdauer (1800–2200m)</span></div><span class="badge">45 min</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Fr</span><span>Lauf locker + Techniklauf</span></div><span class="badge">35–40 min</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Sa</span><span>Renn-Simulation: Rad 2.5–3h + Brick-Lauf 20–30 min Race-Pace</span></div><span class="badge">~3.5h gesamt</span></div>
-            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">So</span><span>Lauf lang (alle 4–6 Wochen HM-Test / B-Rennen)</span></div><span class="badge">80–95 min</span></div>
-        </div>
-    </div>
-
-    <!-- PHASE 5 & 6 -->
-    <div id="p5" class="tab-content">
-        <div class="info-card">
-            <h3>Phase 5 – Peak (Juli 2027)</h3>
-            <ul>
-                <li><strong>Fokus:</strong> Maximum-Volumen (~10 Std./Woche).</li>
-                <li><strong>Schlüsseleinheiten:</strong> 1–2 lange Bricks (Rad 3–3.5h + direkt Lauf 35–45 min in Race-Pace).</li>
-            </ul>
-        </div>
-        <div class="info-card">
-            <h3>Phase 6 – Taper (August 2027)</h3>
-            <ul>
-                <li><strong>Woche -3:</strong> Volumen -25% (~7 Std.), Intensität bleibt kurz/scharf.</li>
-                <li><strong>Woche -2:</strong> Volumen -40% (~5–6 Std.), kurze Race-Pace-Einheiten.</li>
-                <li><strong>Rennwoche:</strong> Volumen -60% (~3–4 Std.), Aktivierung. 2 Tage vorher komplette Ruhe.</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- ZONEN & WETTKÄMPFE -->
-    <div class="section-title">Trainingszonen Overview</div>
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th>Disziplin</th>
-                    <th>Zone</th>
-                    <th>Zielbereich / Pace / Watt</th>
-                    <th>Zweck</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td rowspan="3"><strong>Laufen</strong> (VDOT 43)</td>
-                    <td>Locker (E)</td>
-                    <td>5:45 – 6:10 /km</td>
-                    <td>Grundlage, Regeneration</td>
-                </tr>
-                <tr>
-                    <td>Marathon (M)</td>
-                    <td>5:00 – 5:10 /km</td>
-                    <td>Lange Läufe, aerobe Kraft</td>
-                </tr>
-                <tr>
-                    <td>Schwelle (T)</td>
-                    <td>4:40 – 4:45 /km</td>
-                    <td>Laktatschwelle</td>
-                </tr>
-                <tr>
-                    <td rowspan="2"><strong>Radfahren</strong> (FTP 300W)</td>
-                    <td>Z2 Grundlage</td>
-                    <td>150 – 210 W (55–75%)</td>
-                    <td>Aerobe Basis</td>
-                </tr>
-                <tr>
-                    <td>70.3 Race Pace</td>
-                    <td>210 – 225 W (70–75%)</td>
-                    <td>Wettkampf-Pacing</td>
-                </tr>
-                <tr>
-                    <td><strong>Schwimmen</strong></td>
-                    <td>CSS / Schwelle</td>
-                    <td>~2:10 /100m</td>
-                    <td>Renntempo-Simulation</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- WETTKAMPF MAP -->
-    <div class="section-title">Meilensteine & Testrennen</div>
-    <div class="info-card">
-        <ul>
-            <li><strong>März / April 2027:</strong> Offener Halbmarathon (Ziel: &lt; 1:40h frisch)</li>
-            <li><strong>Mai / Juni 2027:</strong> Sprint- oder Olympic-Distanz Triathlon (Abläufe & Routine)</li>
-            <li><strong>August 2027:</strong> 🏆 <strong>Zielrennen Ironman 70.3</strong></li>
-        </ul>
-    </div>
-
-</div>
-
-<script>
-    function openTab(evt, tabName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].classList.remove("active");
-        }
-        tablinks = document.getElementsByClassName("tab-btn");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].classList.remove("active");
-        }
-        document.getElementById(tabName).classList.add("active");
-        evt.currentTarget.classList.add("active");
-    }
-</script>
-
 </body>
 </html>
-
