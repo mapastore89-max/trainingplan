@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trainingsplan Ironman 70.3 – August 2027</title>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: #1e293b;
+            --accent: #f97316;
+            --accent-hover: #ea580c;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --success: #22c55e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0 40px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        header h1 span {
+            color: var(--accent);
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+        }
+
+        .stat-card h3 {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-card p {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .stat-card span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: normal;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin: 30px 0 15px 0;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background-color: var(--accent);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Tabs für Phasen */
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .week-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .day-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+
+        .day-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .day-name {
+            font-weight: bold;
+            width: 35px;
+            color: var(--accent);
+        }
+
+        .day-check {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            background: rgba(249, 115, 22, 0.15);
+            color: var(--accent);
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        li strong {
+            color: var(--text-main);
+        }
+
+        @media (max-width: 600px) {
+            .day-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Ironman 70.3 <span>Roadmap</span></h1>
+        <div class="meta-info">
+            <span>📅 Start: Sep 2026</span>
+            <span>🏁 Zielrennen: Aug 2027</span>
+            <span>⏱ Dauer: ~48 Wochen</span>
+            <span>⏳ Zeitaufwand: 8–10 Std./Woche</span>
+        </div>
+    </header>
+
+    <!-- KENNZAHLEN DASHBOARD -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Laufen (5 km / HM-Ziel)</h3>
+            <p>22:00 <span>/ &lt; 1:40h</span></p>
+            <span>VDOT ≈ 43 → Ziel 46-47</span>
+        </div>
+        <div class="stat-card">
+            <h3>Radfahren FTP</h3>
+            <p>300 W <span>(4.23 W/kg)</span></p>
+            <span>Starke Basis (71 kg)</span>
+        </div>
+        <div class="stat-card">
+            <h3>Schwimmen</h3>
+            <p>2:10 <span>min/100m</span></p>
+            <span>Nebenpriorität (2x/Woche)</span>
+        </div>
+        <div class="stat-card">
+            <h3>70.3 Rad-Pace</h3>
+            <p>210–225 W</p>
+            <span>70–75% FTP</span>
+        </div>
+    </div>
+
+    <!-- MAKROZYKLUS -->
+    <div class="section-title">Makrozyklus-Übersicht</div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Phase</th>
+                    <th>Zeitraum</th>
+                    <th>Wochen</th>
+                    <th>Fokus</th>
+                    <th>Umfang</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>0 – Übergang/Basis</strong></td>
+                    <td>Sep–Okt 2026</td>
+                    <td>4</td>
+                    <td>Tests (FTP, 5km, CSS), Gewohnheiten, Kraft-Basis</td>
+                    <td>6–7 Std.</td>
+                </tr>
+                <tr>
+                    <td><strong>1 – Grundlage 1</strong></td>
+                    <td>Okt–Nov 2026</td>
+                    <td>8</td>
+                    <td>Aerobes Volumen, Technik Schwimmen, Kraft 2x/Woche</td>
+                    <td>7–8 Std.</td>
+                </tr>
+                <tr>
+                    <td><strong>2 – Grundlage 2</strong></td>
+                    <td>Dez 2026–Jan 2027</td>
+                    <td>8</td>
+                    <td>Volumen halten, Sweetspot, Lauf-ABC</td>
+                    <td>8–9 Std.</td>
+                </tr>
+                <tr>
+                    <td><strong>3 – Aufbau 1</strong></td>
+                    <td>Feb–Mär 2027</td>
+                    <td>8</td>
+                    <td>Schwellentraining, Bricks, HM-Testrennen</td>
+                    <td>8–9 Std.</td>
+                </tr>
+                <tr>
+                    <td><strong>4 – Renn-Spezifisch</strong></td>
+                    <td>Apr–Jun 2027</td>
+                    <td>12</td>
+                    <td>Race-Pace-Bricks, lange Simulationen</td>
+                    <td>9–10 Std.</td>
+                </tr>
+                <tr>
+                    <td><strong>5 – Peak</strong></td>
+                    <td>Jul 2027</td>
+                    <td>4</td>
+                    <td>Höchstvolumen, letzte lange Bricks</td>
+                    <td>10 Std.</td>
+                </tr>
+                <tr>
+                    <td><strong>6 – Taper</strong></td>
+                    <td>Aug 2027</td>
+                    <td>2–3</td>
+                    <td>Volumen -40 bis -60%, Frische aufbauen</td>
+                    <td>4–6 Std.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- WOCHENSTRUKTUR TABS -->
+    <div class="section-title">Beispiel-Wochenstruktur je Phase</div>
+    
+    <div class="tab-buttons">
+        <button class="tab-btn active" onclick="openTab(event, 'p1')">Phase 1: Grundlage</button>
+        <button class="tab-btn" onclick="openTab(event, 'p3')">Phase 3: Aufbau 1</button>
+        <button class="tab-btn" onclick="openTab(event, 'p4')">Phase 4: Renn-Spezifisch</button>
+        <button class="tab-btn" onclick="openTab(event, 'p5')">Phase 5 & 6: Peak / Taper</button>
+    </div>
+
+    <!-- PHASE 1 -->
+    <div id="p1" class="tab-content active">
+        <div class="week-grid">
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Mo</span><span>Ruhetag</span></div><span class="badge">Regeneration</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Di</span><span>Lauf locker (E) + Lauf-ABC / Steigerungen</span></div><span class="badge">40 min</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Mi</span><span>Rad Z2 + Kraft (Rumpf, Hüfte, Beine)</span></div><span class="badge">60 + 25 min</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Do</span><span>Schwimmen (Technik + Ausdauer)</span></div><span class="badge">45 min</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Fr</span><span>Lauf locker (E)</span></div><span class="badge">35 min</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Sa</span><span>Rad lang Z2, letzte 10–15 min Z3</span></div><span class="badge">90 min</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">So</span><span>Lauf lang (E/M-Mix)</span></div><span class="badge">60 min</span></div>
+        </div>
+        <p style="margin-top: 15px; font-size: 0.85rem; color: var(--text-muted);">*Zusätzlich: Schwimmen #2 (Technik, 30–40 min) variabel einbauen.</p>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div id="p3" class="tab-content">
+        <div class="week-grid">
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Mo</span><span>Ruhetag</span></div><span class="badge">Regeneration</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Di</span><span>Lauf: Schwellenintervalle (z.B. 4×6 min @ T-Pace)</span></div><span class="badge">45 min</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Mi</span><span>Rad: Sweetspot (z.B. 3×12 min @ 88–95% FTP) + Kraft</span></div><span class="badge">75 min</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Do</span><span>Schwimmen Technik + CSS-Intervalle</span></div><span class="badge">45 min</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Fr</span><span>Lauf locker</span></div><span class="badge">35 min</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Sa</span><span>Rad lang 1.5–2h Z2 (mit 15m Z3–Z4) + Brick-Lauf 15m M-Tempo</span></div><span class="badge">2h + 15 min</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">So</span><span>Lauf lang, Mix locker + M-Pace-Passagen</span></div><span class="badge">70–80 min</span></div>
+        </div>
+    </div>
+
+    <!-- PHASE 4 -->
+    <div id="p4" class="tab-content">
+        <div class="week-grid">
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Mo</span><span>Ruhetag</span></div><span class="badge">Regeneration</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Di</span><span>Lauf: Tempo/Schwelle (4×6 min @ T + Steigerungen)</span></div><span class="badge">45–50 min</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Mi</span><span>Rad: Race-Pace-Intervalle (2×20 min @ 70–75% FTP) + Kraft</span></div><span class="badge">70 min</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Do</span><span>Schwimmen Ausdauer (1800–2200m)</span></div><span class="badge">45 min</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Fr</span><span>Lauf locker + Techniklauf</span></div><span class="badge">35–40 min</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">Sa</span><span>Renn-Simulation: Rad 2.5–3h + Brick-Lauf 20–30 min Race-Pace</span></div><span class="badge">~3.5h gesamt</span></div>
+            <div class="day-row"><div class="day-info"><input type="checkbox" class="day-check"><span class="day-name">So</span><span>Lauf lang (alle 4–6 Wochen HM-Test / B-Rennen)</span></div><span class="badge">80–95 min</span></div>
+        </div>
+    </div>
+
+    <!-- PHASE 5 & 6 -->
+    <div id="p5" class="tab-content">
+        <div class="info-card">
+            <h3>Phase 5 – Peak (Juli 2027)</h3>
+            <ul>
+                <li><strong>Fokus:</strong> Maximum-Volumen (~10 Std./Woche).</li>
+                <li><strong>Schlüsseleinheiten:</strong> 1–2 lange Bricks (Rad 3–3.5h + direkt Lauf 35–45 min in Race-Pace).</li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <h3>Phase 6 – Taper (August 2027)</h3>
+            <ul>
+                <li><strong>Woche -3:</strong> Volumen -25% (~7 Std.), Intensität bleibt kurz/scharf.</li>
+                <li><strong>Woche -2:</strong> Volumen -40% (~5–6 Std.), kurze Race-Pace-Einheiten.</li>
+                <li><strong>Rennwoche:</strong> Volumen -60% (~3–4 Std.), Aktivierung. 2 Tage vorher komplette Ruhe.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ZONEN & WETTKÄMPFE -->
+    <div class="section-title">Trainingszonen Overview</div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Disziplin</th>
+                    <th>Zone</th>
+                    <th>Zielbereich / Pace / Watt</th>
+                    <th>Zweck</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="3"><strong>Laufen</strong> (VDOT 43)</td>
+                    <td>Locker (E)</td>
+                    <td>5:45 – 6:10 /km</td>
+                    <td>Grundlage, Regeneration</td>
+                </tr>
+                <tr>
+                    <td>Marathon (M)</td>
+                    <td>5:00 – 5:10 /km</td>
+                    <td>Lange Läufe, aerobe Kraft</td>
+                </tr>
+                <tr>
+                    <td>Schwelle (T)</td>
+                    <td>4:40 – 4:45 /km</td>
+                    <td>Laktatschwelle</td>
+                </tr>
+                <tr>
+                    <td rowspan="2"><strong>Radfahren</strong> (FTP 300W)</td>
+                    <td>Z2 Grundlage</td>
+                    <td>150 – 210 W (55–75%)</td>
+                    <td>Aerobe Basis</td>
+                </tr>
+                <tr>
+                    <td>70.3 Race Pace</td>
+                    <td>210 – 225 W (70–75%)</td>
+                    <td>Wettkampf-Pacing</td>
+                </tr>
+                <tr>
+                    <td><strong>Schwimmen</strong></td>
+                    <td>CSS / Schwelle</td>
+                    <td>~2:10 /100m</td>
+                    <td>Renntempo-Simulation</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- WETTKAMPF MAP -->
+    <div class="section-title">Meilensteine & Testrennen</div>
+    <div class="info-card">
+        <ul>
+            <li><strong>März / April 2027:</strong> Offener Halbmarathon (Ziel: &lt; 1:40h frisch)</li>
+            <li><strong>Mai / Juni 2027:</strong> Sprint- oder Olympic-Distanz Triathlon (Abläufe & Routine)</li>
+            <li><strong>August 2027:</strong> 🏆 <strong>Zielrennen Ironman 70.3</strong></li>
+        </ul>
+    </div>
+
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+        }
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+</script>
+
+</body>
+</html>
+
